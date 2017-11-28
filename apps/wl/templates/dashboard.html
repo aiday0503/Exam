@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class='container'>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" style="list-style-type:none">
+                    <span class="navbar-text">
+                    Hello, {{loginuser.name}}!
+                    </span>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/wish_travels/create">Add Travel</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </nav>
+        <br>
+        <p>Your trip schedulse:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Destination</th>
+                    <th>Travel start Date</th>
+                    <th>Travel End Date</th>
+                    <th>Plan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for travel in travels %}
+                <tr>
+                    <td>
+                        <a href="/travels/destination/{{travel.id}}">{{travel.destination}}</a>
+                    </td>
+                    <td>{{travel.travelStart}}</td>
+                    <td>{{travel.travelEnd}}</td>
+                    <td>{{travel.plan}}</td>
+                </tr>
+
+                {% endfor %} {% if upload_traveler %} {% for travel in upload_traveler %}
+                <tr>
+                    <td>
+                        <a href="/travels/destination/{{travel.id}}">{{travel.destination}}</a>
+                    </td>
+                    <td>{{travel.travelStart}}</td>
+                    <td>{{travel.travelEnd}}</td>
+                    <td>{{travel.plan}}</td>
+                </tr>
+                {% endfor %} {% endif %}
+            </tbody>
+        </table>
+
+        <p>Other Users's travel plans:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Destination</th>
+                    <th>Travel start Date</th>
+                    <th>Travel End Date</th>
+                    <th>Do you want to Join?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in other_traveler %}
+                <tr>
+                    <td>{{item.uploader.name}}</td>
+                    <td>
+                        <a href="/travels/destination/{{item.id}}">{{item.destination}}</a>
+                    </td>
+                    <td>{{item.travelStart}}</td>
+                    <td>{{item.travelEnd}}</td>
+                    <td>
+                        <a href="/wish_travels/add/{{item.id}}">Join</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
